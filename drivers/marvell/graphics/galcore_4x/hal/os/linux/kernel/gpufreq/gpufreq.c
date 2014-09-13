@@ -60,7 +60,7 @@ struct __gpufreq_global {
 
 #define GPU_ELEM(var, gpu) gpufreq_global[gpu].var
 
-static int lock_policy_rwsem_read(int gpu)
+int lock_policy_rwsem_read(int gpu)
 {
     int policy_gpu = GPU_ELEM(gpufreq_policy_gpu, gpu);
     BUG_ON(policy_gpu == -1);
@@ -68,7 +68,7 @@ static int lock_policy_rwsem_read(int gpu)
     return 0;
 }
 
-static int lock_policy_rwsem_write(int gpu)
+int lock_policy_rwsem_write(int gpu)
 {
     int policy_gpu = GPU_ELEM(gpufreq_policy_gpu, gpu);
     BUG_ON(policy_gpu == -1);
@@ -76,14 +76,14 @@ static int lock_policy_rwsem_write(int gpu)
     return 0;
 }
 
-static void unlock_policy_rwsem_read(int gpu)
+void unlock_policy_rwsem_read(int gpu)
 {
     int policy_gpu = GPU_ELEM(gpufreq_policy_gpu, gpu);
     BUG_ON(policy_gpu == -1);
     up_read(&GPU_ELEM(gpufreq_policy_rwsem, policy_gpu));
 }
 
-static void unlock_policy_rwsem_write(int gpu)
+void unlock_policy_rwsem_write(int gpu)
 {
     int policy_gpu = GPU_ELEM(gpufreq_policy_gpu, gpu);
     BUG_ON(policy_gpu == -1);
